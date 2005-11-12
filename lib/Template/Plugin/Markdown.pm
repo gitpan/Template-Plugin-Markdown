@@ -1,9 +1,10 @@
+#$Id: Markdown.pm,v 1.3 2005/11/12 03:28:09 naoya Exp $
 package Template::Plugin::Markdown;
 use strict;
 use base qw (Template::Plugin::Filter);
 use Text::Markdown;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub init {
     my $self = shift;
