@@ -1,8 +1,12 @@
+Build.PL
 Changes
-Makefile.PL
+LICENSE
 MANIFEST
+META.json
+META.yml
 README
-t/00_compile.t
-t/01_markdown.t
+cpanfile
+dist.ini
 lib/Template/Plugin/Markdown.pm
-META.yml                                 Module meta-data (added by MakeMaker)
+t/basic.t
+t/release-pod-syntax.t

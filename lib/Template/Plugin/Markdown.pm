@@ -1,56 +1,60 @@
-#$Id: Markdown.pm,v 1.3 2005/11/12 03:28:09 naoya Exp $
 package Template::Plugin::Markdown;
-use strict;
-use base qw (Template::Plugin::Filter);
-use Text::Markdown;
 
-our $VERSION = 0.02;
+use strict;
+use utf8;
+use parent qw(Template::Plugin::Filter);
+use Text::Markdown qw/markdown/;
+
+our $VERSION = '0.01';
+
+my $FILTER_NAME = 'md2html';
 
 sub init {
-    my $self = shift;
-    $self->{_DYNAMIC} = 1;
-    $self->install_filter($self->{_ARGS}->[0] || 'markdown');
-    $self;
+	my $self = $_[0];
+	$self->install_filter($FILTER_NAME);
+	$self;
 }
 
 sub filter {
-    my ($self, $text, $args, $config) = @_;
-    my $m = Text::Markdown->new;
-    return $m->markdown($text);
+	my $text = $_[1];
+	my $html = markdown($text);
+	$html;
 }
 
 1;
-
 __END__
+# ABSTRACT: turns baubles into trinkets
+
+=encoding utf-8
 
 =head1 NAME
 
-Template::Plugin::Markdown - TT plugin for Text::Markdown
+Template::Plugin::Markdown
 
 =head1 SYNOPSIS
 
-  [% USE Markdown -%]
-  [% FILTER markdown %]
-  #Foo
-  Bar
-  ---
-  *Italic* blah blah
-  **Bold** foo bar baz
-  [%- END %]
+ 	[% USE Markdown %]
+ 	[% markdowntext = "# Hello, world!" %]
+ 	[% markdowntext | md2html %]
+	# => <h1>Hello, world!</h1>
 
 =head1 DESCRIPTION
 
-Template::Plugin::Markdown is a plugin for TT, which format your text with Markdown Style.
-
-=head1 SEE ALSO
-
-L<Template>, L<Text::Markdown>
+Template::Plugin::Markdown is a small filter to convert markdown to html.
 
 =head1 AUTHOR
 
-Naoya Ito E<lt>naoya@bloghackers.netE<gt>
+Vitali Peil E<lt>vitali.peil@uni-bielefeld.deE<gt>
 
-This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+=head1 COPYRIGHT
+
+Copyright 2014- Vitali Peil
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 SEE ALSO
 
 =cut
-
